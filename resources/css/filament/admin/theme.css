@@ -1,0 +1,52 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+@source '../../../../resources/views/components/**/*';
+@source '../../../../resources/views/livewire/**/*';
+@source '../../../../app/Livewire/**/*';
+
+@config './tailwind.config.js';
+
+/* Sidebar & content spacing */
+.fi-main-ctn {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+.fi-main {
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-top: 0 !important;
+}
+
+.fi-simple-main {
+    max-width: 100% !important;
+}
+
+/* Table row height */
+.fi-ta-cell {
+    padding-top: 0.375rem !important;
+    padding-bottom: 0.375rem !important;
+}
+
+.fi-ta-text {
+    font-size: 0.8125rem !important;
+    line-height: 1.25rem !important;
+}
+
+.fi-ta-header-cell {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+
+/* Custom font size */
+html {
+    font-size: 14px; /* default browser: 16px. Kecilkan/besarkan sesuai kebutuhan */
+}
+
+body {
+    font-size: 0.875rem; /* 14px jika root 16px */
+}
