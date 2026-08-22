@@ -1,5 +1,6 @@
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
 
+
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
 @source '../../../../resources/views/components/**/*';
@@ -49,4 +50,8 @@ html {
 
 body {
     font-size: 0.875rem; /* 14px jika root 16px */
+}
+
+.fi-sidebar-item-icon {
+    display: inline-flex !important;
 }

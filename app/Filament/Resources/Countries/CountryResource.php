@@ -2,23 +2,24 @@
 
 namespace App\Filament\Resources\Countries;
 
-use App\Filament\Resources\Countries\Pages; // <-- INI YANG KURANG
+use App\Filament\Resources\Countries\Pages;
 use App\Filament\Resources\Countries\Tables\CountriesTable;
 use App\Models\Country;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
-use Filament\Forms\Form;
 use Filament\Schemas\Schema;
 use App\Filament\Resources\Countries\Schemas\CountryForm;
 use App\Filament\Resources\Countries\Schemas\CountryInfolist;
+use Filament\Support\Icons\Heroicon;
 
 class CountryResource extends Resource
 {
-    // Hubungkan kembali ke Eloquent Model Country
     protected static ?string $model = Country::class;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-globe-alt';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedGlobeAmericas;
+    protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::OutlinedGlobeAmericas;
+    protected static string|\UnitEnum|null $navigationGroup = 'Master';
 
     protected static ?string $navigationLabel = 'Negara';
     protected static ?string $modelLabel = 'Negara';

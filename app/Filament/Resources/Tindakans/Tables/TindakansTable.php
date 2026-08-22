@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\Resources\Tindakans\Tables;
 
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
@@ -9,9 +9,10 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
-class UsersTable
+class TindakansTable
 {
     public static function configure(Table $table): Table
     {
@@ -20,45 +21,37 @@ class UsersTable
                 TextColumn::make('no')
                     ->label('No.')
                     ->rowIndex(),
-
-                TextColumn::make('name')
-                    ->searchable()
-                    ->sortable()
-                    ->extraAttributes(['class' => 'py-1']),
-
-                TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable()
-                    ->sortable()
-                    ->extraAttributes(['class' => 'py-1']),
-
-                TextColumn::make('roles.name')
-                    ->label('Role / Hak Akses')
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->sortable(),
+                TextColumn::make('nama_tindakan')
+                    ->searchable(),
+                TextColumn::make('kategori_tindakan')
+                    ->searchable(),
+                TextColumn::make('status')
                     ->badge()
-                    ->extraAttributes(['class' => 'py-1']),
-
-                TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->placeholder('Belum Verifikasi')
-                    ->extraAttributes(['class' => 'py-1']),
-
+                    ->color(fn(string $state): string => match ($state) {
+                        'Aktif' => 'success',
+                        'Non Aktif' => 'danger',
+                        default => 'gray',
+                    }),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->extraAttributes(['class' => 'py-1']),
-
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->extraAttributes(['class' => 'py-1']),
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->recordUrl(null)
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->options([
+                        'Aktif' => 'Aktif',
+                        'Non Aktif' => 'Non Aktif',
+                    ]),
             ])
+            ->defaultSort('created_at', 'desc')
             ->recordActions([
                 ActionGroup::make([
                     ViewAction::make(),

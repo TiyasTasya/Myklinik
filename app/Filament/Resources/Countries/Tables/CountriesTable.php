@@ -17,9 +17,13 @@ class CountriesTable
     {
         return $table
             ->columns([
+                TextColumn::make('no')
+                    ->label('No.')
+                    ->rowIndex(),
+
                 TextColumn::make('flag')
                     ->label('Bendera')
-                    ->size('lg'), // Menampilkan emoji bendera
+                    ->size('lg'),
 
                 TextColumn::make('name')
                     ->label('Nama Negara')
@@ -41,9 +45,9 @@ class CountriesTable
             ])
             ->recordActions([
                 ActionGroup::make([
-                ViewAction::make(),
-                EditAction::make(),
-                DeleteAction::make(),
+                    ViewAction::make(),
+                    EditAction::make(),
+                    DeleteAction::make(),
                 ])
             ])
             ->toolbarActions([
