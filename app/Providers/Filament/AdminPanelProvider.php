@@ -19,6 +19,8 @@ use Illuminate\Session\Middleware\StartSession;
 use FinityLabs\FinAvatar\AvatarProviders\UiAvatarsProvider;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Navigation\NavigationGroup;
+use JeffersonGoncalves\Filament\RefreshSidebar\RefreshSidebarPlugin;
+use Filament\Support\Icons\Heroicon;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -46,13 +48,14 @@ class AdminPanelProvider extends PanelProvider
                 Dashboard::class,
             ])
             ->plugins([
-                FilamentShieldPlugin::make()
-                    ->navigationGroup('Master'),
+                FilamentShieldPlugin::make(),
+                RefreshSidebarPlugin::make(),
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->defaultAvatarProvider(UiAvatarsProvider::class)
             ->navigationGroups([
                 NavigationGroup::make('Master')
+                    ->icon(Heroicon::Folder),
             ])
             ->middleware([
                 EncryptCookies::class,

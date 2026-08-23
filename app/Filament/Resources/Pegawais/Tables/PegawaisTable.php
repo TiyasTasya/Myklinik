@@ -74,6 +74,7 @@ class PegawaisTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->recordUrl(null)
             ->filters([
                 //
             ])

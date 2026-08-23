@@ -17,10 +17,6 @@ class CountriesTable
     {
         return $table
             ->columns([
-                TextColumn::make('no')
-                    ->label('No.')
-                    ->rowIndex(),
-
                 TextColumn::make('flag')
                     ->label('Bendera')
                     ->size('lg'),

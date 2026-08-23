@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Tindakans\Tables;
+namespace App\Filament\Resources\Satuans\Tables;
 
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
@@ -8,11 +8,13 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
-class TindakansTable
+class SatuansTable
 {
     public static function configure(Table $table): Table
     {
@@ -20,18 +22,11 @@ class TindakansTable
             ->columns([
                 TextColumn::make('id')
                     ->label('ID')
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('nama_tindakan')
-                    ->searchable(),
-                TextColumn::make('kategori_tindakan')
-                    ->searchable(),
-                TextColumn::make('status')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'Aktif' => 'success',
-                        'Non Aktif' => 'danger',
-                        default => 'gray',
-                    }),
+                TextColumn::make('nama')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -41,15 +36,26 @@ class TindakansTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->recordUrl(null)
             ->filters([
-                SelectFilter::make('status')
-                    ->options([
-                        'Aktif' => 'Aktif',
-                        'Non Aktif' => 'Non Aktif',
-                    ]),
+                Filter::make('created_at')
+                    ->schema([
+                        DatePicker::make('created_from')
+                            ->label('Dari Tanggal'),
+                        DatePicker::make('created_until')
+                            ->label('Sampai Tanggal'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    }),
             ])
-            ->defaultSort('created_at', 'desc')
             ->recordActions([
                 ActionGroup::make([
                     ViewAction::make(),

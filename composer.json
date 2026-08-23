@@ -7,10 +7,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "agroezinger/filament-navigation-enhanced": "^1.0",
         "azishapidin/indoregion": "^3.0",
         "bezhansalleh/filament-shield": "^4.3",
         "filament/filament": "^5.7",
         "finity-labs/fin-avatar": "^1.1",
+        "jeffersongoncalves/filament-refresh-sidebar": "^2.0",
         "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0",
         "livewire/volt": "^1.11",

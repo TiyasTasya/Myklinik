@@ -1,13 +1,10 @@
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
 
-
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
 @source '../../../../resources/views/components/**/*';
 @source '../../../../resources/views/livewire/**/*';
 @source '../../../../app/Livewire/**/*';
-
-@config './tailwind.config.js';
 
 /* Sidebar & content spacing */
 .fi-main-ctn {
@@ -21,10 +18,6 @@
     padding-left: 1rem !important;
     padding-right: 1rem !important;
     padding-top: 0 !important;
-}
-
-.fi-simple-main {
-    max-width: 100% !important;
 }
 
 /* Table row height */
@@ -45,11 +38,11 @@
 
 /* Custom font size */
 html {
-    font-size: 14px; /* default browser: 16px. Kecilkan/besarkan sesuai kebutuhan */
+    font-size: 14px;
 }
 
 body {
-    font-size: 0.875rem; /* 14px jika root 16px */
+    font-size: 0.875rem;
 }
 
 .fi-sidebar-item-icon {

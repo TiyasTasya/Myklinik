@@ -10,6 +10,7 @@ use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Schemas\UserInfolist;
 use App\Filament\Resources\Users\Tables\UsersTable;
 use App\Models\User;
+use App\Filament\Clusters\ManajemenPengguna;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -22,8 +23,19 @@ class UserResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserCircle;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Master';
+    protected static ?string $cluster = ManajemenPengguna::class;
 
+    // Hapus atau ganti static property $navigationLabel, lalu gunakan method ini:
+    public static function getNavigationLabel(): string
+    {
+        return 'User';
+    }
+
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar User';
+    }
 
     public static function form(Schema $schema): Schema
     {

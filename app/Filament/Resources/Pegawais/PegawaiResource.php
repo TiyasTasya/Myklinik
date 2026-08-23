@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use App\Filament\Clusters\ManajemenPengguna;
 
 class PegawaiResource extends Resource
 {
@@ -22,8 +23,8 @@ class PegawaiResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
     protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::OutlinedUsers;
-    protected static string|\UnitEnum|null $navigationGroup = 'Master';
 
+    protected static ?string $cluster = ManajemenPengguna::class;
 
     // Label terjemahan ke Bahasa Indonesia
     protected static ?string $navigationLabel = 'Pegawai';

@@ -31,6 +31,7 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Unique;
 use Override;
+use App\Filament\Clusters\ManajemenPengguna;
 
 class RoleResource extends Resource
 {
@@ -42,6 +43,11 @@ class RoleResource extends Resource
     use HasShieldFormComponents;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    public static function getCluster(): ?string
+    {
+        return ManajemenPengguna::class;
+    }
 
     #[Override]
     public static function form(Schema $schema): Schema
@@ -141,6 +147,7 @@ class RoleResource extends Resource
                     ->label(__('filament-shield::filament-shield.column.updated_at'))
                     ->dateTime(),
             ])
+            ->recordUrl(null)
             ->filters([
                 //
             ])
@@ -183,11 +190,6 @@ class RoleResource extends Resource
     public static function getSlug(?Panel $panel = null): string
     {
         return Utils::getResourceSlug();
-    }
-
-    public static function getCluster(): ?string
-    {
-        return Utils::getResourceCluster();
     }
 
     public static function getEssentialsPlugin(): ?FilamentShieldPlugin

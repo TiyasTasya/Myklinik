@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Filament\Resources\Tindakans\Tables;
+namespace App\Filament\Resources\Penyedias\Tables;
 
 use Filament\Actions\ActionGroup;
-use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
-class TindakansTable
+class PenyediasTable
 {
     public static function configure(Table $table): Table
     {
@@ -21,35 +21,44 @@ class TindakansTable
                 TextColumn::make('id')
                     ->label('ID')
                     ->sortable(),
-                TextColumn::make('nama_tindakan')
+
+                TextColumn::make('nama')
+                    ->label('Nama')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('alamat')
+                    ->label('Alamat')
+                    ->limit(50)
+                    ->wrap()
                     ->searchable(),
-                TextColumn::make('kategori_tindakan')
+
+                TextColumn::make('no_telepon')
+                    ->label('No. Telepon')
                     ->searchable(),
-                TextColumn::make('status')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'Aktif' => 'success',
-                        'Non Aktif' => 'danger',
-                        default => 'gray',
-                    }),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('fax')
+                    ->label('Fax'),
+
+                TextColumn::make('tanggal')
+                    ->label('Tanggal')
+                    ->date('d/m/Y')
+                    ->sortable(),
+
+                IconColumn::make('status')
+                    ->label('Status')
+                    ->boolean()
+                    ->getStateUsing(fn($record) => $record->status === 'Aktif'),
             ])
             ->recordUrl(null)
             ->filters([
                 SelectFilter::make('status')
+                    ->label('Status')
                     ->options([
                         'Aktif' => 'Aktif',
                         'Non Aktif' => 'Non Aktif',
                     ]),
             ])
-            ->defaultSort('created_at', 'desc')
             ->recordActions([
                 ActionGroup::make([
                     ViewAction::make(),
@@ -58,9 +67,7 @@ class TindakansTable
                 ])
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                DeleteBulkAction::make(),
             ]);
     }
 }
