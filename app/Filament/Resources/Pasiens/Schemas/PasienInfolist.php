@@ -18,37 +18,45 @@ class PasienInfolist
     {
         return $schema
             ->components([
-                // ===== Header: Identitas Ringkas dengan Foto Profil Dinamis =====
                 Section::make()
                     ->schema([
-                        Grid::make(12) // Menggunakan 12 kolom agar pembagian ruang lebih presisi
+                        Grid::make(12)
                             ->schema([
-                                // 1. Kolom Foto Profil (Span 2)
+
                                 Grid::make(1)
                                     ->columnSpan(2)
                                     ->schema([
-                                        ImageEntry::make('profile_foto')
-                                            ->label('Foto')
-                                            ->getStateUsing(function ($record) {
-                                                $jk = strtolower($record->jenis_kelamin ?? '');
+                                        Section::make()
+                                            ->schema([
+                                                ImageEntry::make('profile_foto')
+                                                    ->hiddenLabel()
+                                                    ->getStateUsing(function ($record) {
+                                                        $jk = strtolower($record->jenis_kelamin ?? '');
 
-                                                if (str_contains($jk, 'l') && !str_contains($jk, 'p')) {
-                                                    return asset('profile/men.png');
-                                                } elseif (str_contains($jk, 'p')) {
-                                                    return asset('profile/women.png');
-                                                }
+                                                        if (str_contains($jk, 'l') && !str_contains($jk, 'p')) {
+                                                            return asset('profile/men.png');
+                                                        } elseif (str_contains($jk, 'p')) {
+                                                            return asset('profile/women.png');
+                                                        }
 
-                                                return asset('profile/men.png');
-                                            })
-                                            ->size(110),
+                                                        return asset('profile/men.png');
+                                                    })
+                                                    ->size(110)
+                                                    ->alignCenter(),
+                                            ])
+                                            ->compact()
+                                            ->contained(true)
+                                            ->extraAttributes([
+                                                'class' => 'bg-gray-100 dark:bg-gray-800/60 rounded-xl',
+                                            ]),
                                     ]),
 
-                                // 2. Kolom Identitas Utama (Span 4)
+
                                 Grid::make(1)
                                     ->columnSpan(4)
                                     ->schema([
-                                        TextEntry::make('norm_manual')
-                                            ->label('No. RM')
+                                        TextEntry::make('no_rm')
+                                            ->label('No. Rekam Medis')
                                             ->size('lg')
                                             ->weight('bold')
                                             ->placeholder('-'),
@@ -91,7 +99,7 @@ class PasienInfolist
                                             ->badge(),
                                     ]),
 
-                                // 3. Kolom Informasi Tambahan & Alamat (Span 6)
+
                                 Grid::make(2)
                                     ->columnSpan(6)
                                     ->schema([
@@ -143,7 +151,6 @@ class PasienInfolist
                             ]),
                     ]),
 
-                // ===== Detail: Dikelompokkan dalam Tab =====
                 Tabs::make('Detail')
                     ->tabs([
                         Tab::make('Kartu Identitas')

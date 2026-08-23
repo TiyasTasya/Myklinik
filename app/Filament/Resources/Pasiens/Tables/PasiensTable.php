@@ -26,8 +26,8 @@ class PasiensTable
                     ->label('No')
                     ->rowIndex(),
 
-                TextColumn::make('norm_manual')
-                    ->label('No RM')
+                TextColumn::make('no_rm')
+                    ->label('Rekam Medis')
                     ->searchable(),
 
                 TextColumn::make('nama')
@@ -65,7 +65,7 @@ class PasiensTable
                     )->nama),
 
                 // ===== Kolom tambahan, disembunyikan default (bisa dimunculkan lewat menu kolom) =====
-                TextColumn::make('no_rm')
+                TextColumn::make('norm_manual')
                     ->label('Nomor Rekam Medis')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),

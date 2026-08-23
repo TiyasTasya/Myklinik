@@ -7,6 +7,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -17,18 +18,15 @@ class ReferensisTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
-                    ->sortable(),
+                    ->label('ID'),
 
                 TextColumn::make('nama')
                     ->label('Nama Referensi')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('kode')
                     ->label('Kode')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('details_count')
                     ->label('Jumlah Detail')
@@ -37,6 +35,7 @@ class ReferensisTable
             ])
             ->recordActions([
                 ActionGroup::make([
+                    ViewAction::make(),
                     EditAction::make(),
                     DeleteAction::make(),
                 ]),

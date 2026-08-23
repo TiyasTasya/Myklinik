@@ -19,19 +19,16 @@ class PenyediasTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
-                    ->sortable(),
+                    ->label('ID'),
 
                 TextColumn::make('nama')
                     ->label('Nama')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('alamat')
                     ->label('Alamat')
                     ->limit(50)
-                    ->wrap()
-                    ->searchable(),
+                    ->wrap(),
 
                 TextColumn::make('no_telepon')
                     ->label('No. Telepon')
@@ -42,8 +39,7 @@ class PenyediasTable
 
                 TextColumn::make('tanggal')
                     ->label('Tanggal')
-                    ->date('d/m/Y')
-                    ->sortable(),
+                    ->date('d/m/Y'),
 
                 IconColumn::make('status')
                     ->label('Status')

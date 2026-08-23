@@ -24,13 +24,11 @@ class PolisTable
             ->columns([
                 TextColumn::make('id')
                     ->label('ID')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('nama')
                     ->label('Nama Poli')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 IconColumn::make('status')
                     ->label('Status')
@@ -38,14 +36,13 @@ class PolisTable
 
                 TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->recordUrl(null)
             ->filters([
                 SelectFilter::make('status')
                     ->label('Status')

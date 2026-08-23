@@ -20,19 +20,16 @@ class BarangsTable
             ->columns([
                 TextColumn::make('nama_barang')
                     ->label('Nama Barang')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('kategori.nama')
                     ->label('Kategori')
                     ->badge()
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('satuan.nama')
                     ->label('Satuan')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('merk')
                     ->label('Merk')
@@ -40,13 +37,11 @@ class BarangsTable
 
                 TextColumn::make('penyedia.nama')
                     ->label('Penyedian')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('generik')
                     ->label('Generik')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('jenis_penggunaan')
                     ->label('Jenis Penggunaan')
@@ -55,13 +50,13 @@ class BarangsTable
 
                 TextColumn::make('stok_minimum')
                     ->label('Stok Minimum')
-                    ->numeric()
-                    ->sortable(),
+                    ->numeric(),
 
                 IconColumn::make('status')
                     ->label('Status')
                     ->boolean(),
             ])
+            ->recordUrl(null)
             ->filters([
                 SelectFilter::make('kategori_id')
                     ->label('Kategori')

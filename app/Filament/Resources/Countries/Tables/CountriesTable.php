@@ -23,13 +23,11 @@ class CountriesTable
 
                 TextColumn::make('name')
                     ->label('Nama Negara')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('code')
                     ->label('Kode ISO')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('dial_code')
                     ->label('Kode Telepon')

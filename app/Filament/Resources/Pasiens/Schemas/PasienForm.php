@@ -27,13 +27,13 @@ class PasienForm
                 Section::make('Data Identitas')
                     ->icon('heroicon-o-identification')
                     ->schema([
-                        TextInput::make('norm_manual')
-                            ->label('Norm Manual')
+                        TextInput::make('no_rm')
+                            ->label('Nomor RM')
                             ->default(function () {
-                                $last = \App\Models\Pasien::whereNotNull('norm_manual')
+                                $last = \App\Models\Pasien::whereNotNull('no_rm')
                                     ->where('norm_manual', 'REGEXP', '^[0-9]+$')
                                     ->orderByRaw('CAST(norm_manual AS UNSIGNED) DESC')
-                                    ->value('norm_manual');
+                                    ->value('no_rm');
 
                                 $next = $last ? ((int) $last) + 1 : 1;
 
