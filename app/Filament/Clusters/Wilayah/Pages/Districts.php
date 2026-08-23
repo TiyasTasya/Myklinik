@@ -19,6 +19,11 @@ class Districts extends Page
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-map-pin';
 
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return 'Data Kecamatan berhasil ditambahkan';
+    }
+
     protected static ?string $navigationLabel = 'Kecamatan';
 
     protected static ?string $title = 'Data Kecamatan';
@@ -42,7 +47,10 @@ class Districts extends Page
                         ->required()
                         ->live()
                         ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
-                            if (!$state) { $set('id', ''); return; }
+                            if (!$state) {
+                                $set('id', '');
+                                return;
+                            }
                             $lastId = District::where('regency_id', $state)->orderByDesc('id')->value('id');
                             $suffix = $lastId ? (int) substr($lastId, 4) + 1 : 1;
                             $set('id', $state . str_pad($suffix, 3, '0', STR_PAD_LEFT));

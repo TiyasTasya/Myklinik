@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Tindakans\Pages;
 use App\Filament\Resources\Tindakans\TindakanResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Icons\Heroicon;
 
 class ListTindakans extends ListRecords
 {
@@ -13,7 +14,9 @@ class ListTindakans extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+            ->label('Tambah Tindakan')
+            ->icon(Heroicon::Plus),
         ];
     }
 }

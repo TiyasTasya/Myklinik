@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Filament\Resources\Countries\Pages;
+namespace App\Filament\Resources\Referensis\Pages;
 
-use App\Filament\Resources\Countries\CountryResource;
+use App\Filament\Resources\Referensis\ReferensiResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Support\Icons\Heroicon;
 
-class ListCountries extends ListRecords
+class ListReferensis extends ListRecords
 {
-    protected static string $resource = CountryResource::class;
+    protected static string $resource = ReferensiResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
             CreateAction::make()
-            ->label('Tambah Negara')
+            ->label('Tambah Refensi')
             ->icon(Heroicon::Plus),
         ];
     }

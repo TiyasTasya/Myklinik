@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePenyedia extends CreateRecord
 {
     protected static string $resource = PenyediaResource::class;
+
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return 'Data Penyedia berhasil ditambahkan';
+    }
 }

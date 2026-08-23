@@ -36,6 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->favicon(asset('logo/favicon.png'))
             ->brandLogoHeight('3rem')
             ->login()
+            ->spa()
             ->font('Poppins')
             ->sidebarCollapsibleOnDesktop()
             ->colors([

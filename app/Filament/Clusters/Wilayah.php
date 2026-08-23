@@ -16,4 +16,5 @@ class Wilayah extends Cluster
     protected static string|UnitEnum|null $navigationGroup = 'Master';
 
     protected static ?int $navigationSort = 10;
+
 }

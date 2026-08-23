@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Barangs\Pages;
 use App\Filament\Resources\Barangs\BarangResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Icons\Heroicon;
 
 class ListBarangs extends ListRecords
 {
@@ -13,7 +14,9 @@ class ListBarangs extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+            ->label('Tambah Barang')
+            ->icon(Heroicon::Plus),
         ];
     }
 }

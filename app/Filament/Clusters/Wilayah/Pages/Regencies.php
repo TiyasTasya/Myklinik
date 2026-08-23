@@ -19,6 +19,11 @@ class Regencies extends Page
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-building-library';
 
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return 'Data Kabupaten/Kota berhasil ditambahkan';
+    }
+
     protected static ?string $navigationLabel = 'Kabupaten/Kota';
 
     protected static ?string $title = 'Data Kabupaten/Kota';
@@ -42,7 +47,10 @@ class Regencies extends Page
                         ->required()
                         ->live()
                         ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
-                            if (!$state) { $set('id', ''); return; }
+                            if (!$state) {
+                                $set('id', '');
+                                return;
+                            }
                             $lastId = Regency::where('province_id', $state)->orderByDesc('id')->value('id');
                             $suffix = $lastId ? (int) substr($lastId, 2) + 1 : 1;
                             $set('id', $state . str_pad($suffix, 2, '0', STR_PAD_LEFT));

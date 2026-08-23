@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateTindakan extends CreateRecord
 {
     protected static string $resource = TindakanResource::class;
+
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return 'Data Tindakan berhasil ditambahkan';
+    }
 }

@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePegawai extends CreateRecord
 {
     protected static string $resource = PegawaiResource::class;
+
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return 'Data Pegawai berhasil ditambahkan';
+    }
 }

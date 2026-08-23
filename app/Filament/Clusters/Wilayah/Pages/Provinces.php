@@ -15,6 +15,11 @@ class Provinces extends Page
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-building-office-2';
 
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return 'Data Provinsi berhasil ditambahkan';
+    }
+
     protected static ?string $navigationLabel = 'Provinsi';
 
     protected static ?string $title = 'Data Provinsi';

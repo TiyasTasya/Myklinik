@@ -24,11 +24,10 @@ class PenyediaResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = 'Master';
 
-    protected static ?string $modelLabel = 'Penyedia';
 
     protected static ?string $pluralModelLabel = 'Daftar Penyedia';
 
-    protected static ?string $navigationLabel = 'Daftar Penyedia';
+    protected static ?string $navigationLabel = 'Penyedia';
 
     public static function form(Schema $schema): Schema
     {

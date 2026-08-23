@@ -46,6 +46,7 @@ class BarangResource extends Resource
         return BarangsTable::configure($table);
     }
 
+
     public static function getPages(): array
     {
         return [

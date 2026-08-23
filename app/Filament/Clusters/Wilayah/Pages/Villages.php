@@ -21,6 +21,11 @@ class Villages extends Page
 
     protected static ?string $navigationLabel = 'Desa/Kelurahan';
 
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return 'Data Desa/Kelurahan berhasil ditambahkan';
+    }
+
     protected static ?string $title = 'Data Desa/Kelurahan';
 
     protected static ?int $navigationSort = 4;
@@ -42,7 +47,10 @@ class Villages extends Page
                         ->required()
                         ->live()
                         ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
-                            if (!$state) { $set('id', ''); return; }
+                            if (!$state) {
+                                $set('id', '');
+                                return;
+                            }
                             $lastId = Village::where('district_id', $state)->orderByDesc('id')->value('id');
                             $suffix = $lastId ? (int) substr($lastId, 7) + 1 : 1;
                             $set('id', $state . str_pad($suffix, 3, '0', STR_PAD_LEFT));
