@@ -21,9 +21,26 @@ class SatuanResource extends Resource
 {
     protected static ?string $model = Satuan::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedScale;
 
     protected static ?string $cluster = ManajemenBarang::class;
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Satuan';
+    }
+
+    // Label tunggal (untuk form/notifikasi)
+    public static function getModelLabel(): string
+    {
+        return 'Satuan';
+    }
+
+    // Label jamak (untuk judul halaman dan breadcrumb)
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Satuan';
+    }
 
     public static function form(Schema $schema): Schema
     {

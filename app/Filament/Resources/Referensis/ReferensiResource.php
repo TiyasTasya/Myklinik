@@ -24,7 +24,7 @@ class ReferensiResource extends Resource
 
     protected static ?string $modelLabel = 'Referensi';
 
-    protected static ?string $pluralModelLabel = 'Data Referensi';
+    protected static ?string $pluralModelLabel = 'Daftar Referensi';
 
     protected static ?string $navigationLabel = 'Referensi';
 

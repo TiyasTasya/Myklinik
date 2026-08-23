@@ -22,7 +22,7 @@ class Provinces extends Page
 
     protected static ?string $navigationLabel = 'Provinsi';
 
-    protected static ?string $title = 'Data Provinsi';
+    protected static ?string $title = 'Daftar Provinsi';
 
     protected static ?int $navigationSort = 1;
 

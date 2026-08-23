@@ -26,7 +26,7 @@ class Districts extends Page
 
     protected static ?string $navigationLabel = 'Kecamatan';
 
-    protected static ?string $title = 'Data Kecamatan';
+    protected static ?string $title = 'Daftar Kecamatan';
 
     protected static ?int $navigationSort = 3;
 

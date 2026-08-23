@@ -26,7 +26,7 @@ class Villages extends Page
         return 'Data Desa/Kelurahan berhasil ditambahkan';
     }
 
-    protected static ?string $title = 'Data Desa/Kelurahan';
+    protected static ?string $title = 'Daftar Desa/Kelurahan';
 
     protected static ?int $navigationSort = 4;
 

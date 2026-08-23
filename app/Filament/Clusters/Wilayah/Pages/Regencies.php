@@ -26,7 +26,7 @@ class Regencies extends Page
 
     protected static ?string $navigationLabel = 'Kabupaten/Kota';
 
-    protected static ?string $title = 'Data Kabupaten/Kota';
+    protected static ?string $title = 'Daftar Kabupaten/Kota';
 
     protected static ?int $navigationSort = 2;
 

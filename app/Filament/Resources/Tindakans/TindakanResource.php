@@ -26,7 +26,7 @@ class TindakanResource extends Resource
 
     protected static ?string $modelLabel = 'Tindakan';
 
-    protected static ?string $pluralModelLabel = 'Tindakan';
+    protected static ?string $pluralModelLabel = 'Daftar Tindakan';
 
     protected static ?string $navigationLabel = 'Tindakan';
 

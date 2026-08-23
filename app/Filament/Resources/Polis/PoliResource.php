@@ -24,7 +24,7 @@ class PoliResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = 'Master';
 
-    protected static ?string $pluralModelLabel = 'Data Poli';
+    protected static ?string $pluralModelLabel = 'Daftar Poli';
 
     protected static ?string $navigationLabel = 'Poli';
 

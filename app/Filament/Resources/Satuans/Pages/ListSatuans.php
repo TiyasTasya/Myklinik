@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Satuans\Pages;
 use App\Filament\Resources\Satuans\SatuanResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Icons\Heroicon;
 
 class ListSatuans extends ListRecords
 {
@@ -13,7 +14,9 @@ class ListSatuans extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Tambah Satuan')
+                ->icon(Heroicon::Plus),
         ];
     }
 }

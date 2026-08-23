@@ -27,7 +27,7 @@ class BarangResource extends Resource
 
     protected static ?string $modelLabel = 'Barang';
 
-    protected static ?string $pluralModelLabel = 'Data Barang';
+    protected static ?string $pluralModelLabel = 'Daftar Barang';
 
     protected static ?string $navigationLabel = 'Data Barang';
 
