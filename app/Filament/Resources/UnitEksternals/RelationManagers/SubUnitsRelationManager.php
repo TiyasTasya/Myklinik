@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Referensis\RelationManagers;
+namespace App\Filament\Resources\UnitEksternals\RelationManagers;
 
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
@@ -17,25 +17,20 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class DetailsRelationManager extends RelationManager
+class SubUnitsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'details';
+    protected static string $relationship = 'subUnits';
 
-    protected static ?string $title = 'Detil Referensi';
+    protected static ?string $title = 'Sub Unit (Eselon 2)';
 
     public function form(Schema $schema): Schema
     {
         return $schema->components([
-            TextInput::make('deskripsi')
-                ->label('Deskripsi')
+            TextInput::make('nama')
+                ->label('Nama Sub Unit')
                 ->required()
                 ->maxLength(255)
                 ->columnSpanFull(),
-
-            TextInput::make('urutan')
-                ->label('Urutan')
-                ->numeric()
-                ->default(0),
 
             Toggle::make('status')
                 ->label('Status')
@@ -46,14 +41,10 @@ class DetailsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('deskripsi')
+            ->recordTitleAttribute('nama')
             ->columns([
-                TextColumn::make('id')
-                    ->label('No')
-                    ->rowIndex(),
-
-                TextColumn::make('deskripsi')
-                    ->label('Deskripsi')
+                TextColumn::make('nama')
+                    ->label('Nama Sub Unit')
                     ->searchable()
                     ->sortable(),
 
@@ -61,25 +52,23 @@ class DetailsRelationManager extends RelationManager
                     ->label('Status')
                     ->boolean(),
             ])
-            ->defaultSort('urutan')
             ->headerActions([
                 CreateAction::make()
-                    ->label('Tambah Detail Referensi')
+                    ->label('Tambah Sub Unit Kerja')
                     ->icon(Heroicon::Plus)
-                    ->successNotificationTitle('Data Detail Referensi berhasil ditambahkan'),
+                    ->successNotificationTitle('Sub Unit berhasil ditambahkan'),
             ])
             ->recordActions([
                 ActionGroup::make([
                     EditAction::make()
-                        ->successNotificationTitle('Data Detail Referensi berhasil diperbarui'),
+                        ->successNotificationTitle('Sub Unit berhasil diperbarui'),
                     DeleteAction::make()
-                        ->successNotificationTitle('Data Detail Referensi berhasil dihapus'),
+                        ->successNotificationTitle('Sub Unit berhasil dihapus'),
                 ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make()
-                        ->successNotificationTitle('Data Detail Referensi berhasil dihapus'),
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
