@@ -54,4 +54,14 @@ class EditRole extends EditRecord
         // @phpstan-ignore-next-line
         $this->record->syncPermissions($permissionModels);
     }
+
+    public function getTitle(): string
+    {
+        return 'Ubah Peran';
+    }
+
+    protected function getSavedNotificationTitle(): ?string
+    {
+        return 'Data Peran berhasil diperbarui';
+    }
 }

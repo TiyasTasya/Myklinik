@@ -24,13 +24,11 @@ class UnitEksternalsTable
             ->columns([
                 TextColumn::make('id')
                     ->label('ID')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('nama')
                     ->label('Nama Unit')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('sub_units_count')
                     ->label('Jumlah Sub Unit')
@@ -44,12 +42,10 @@ class UnitEksternalsTable
 
                 TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([

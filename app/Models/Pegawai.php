@@ -62,22 +62,22 @@ class Pegawai extends Model
     }
     public function tempatLahir(): BelongsTo
     {
-        return $this->belongsTo(Regency::class, 'tempat_lahir_regency_id');
+        return $this->belongsTo(Regency::class, 'tempat_lahir_regency_id', 'code');
     }
     public function province(): BelongsTo
     {
-        return $this->belongsTo(Province::class);
+        return $this->belongsTo(Province::class, 'province_id', 'code');
     }
     public function regency(): BelongsTo
     {
-        return $this->belongsTo(Regency::class);
+        return $this->belongsTo(Regency::class, 'regency_id', 'code');
     }
     public function district(): BelongsTo
     {
-        return $this->belongsTo(District::class);
+        return $this->belongsTo(District::class, 'district_id', 'code');
     }
     public function village(): BelongsTo
     {
-        return $this->belongsTo(Village::class);
+        return $this->belongsTo(Village::class, 'village_id', 'code');
     }
 }

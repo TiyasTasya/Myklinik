@@ -46,8 +46,13 @@ class CreateRole extends CreateRecord
         $this->record->syncPermissions($permissionModels);
     }
 
+    public function getTitle(): string
+    {
+        return 'Buat Peran';
+    }
+
     protected function getCreatedNotificationTitle(): ?string
     {
-        return 'Data Hak Akses berhasil ditambahkan';
+        return 'Data Peran berhasil ditambahkan';
     }
 }

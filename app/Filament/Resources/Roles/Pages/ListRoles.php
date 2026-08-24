@@ -17,8 +17,8 @@ class ListRoles extends ListRecords
     {
         return [
             CreateAction::make()
-            ->label('Tambah Hak Akses')
-            ->icon(Heroicon::Plus),
+                ->label('Buat Peran')
+                ->icon(Heroicon::Plus),
         ];
     }
 }

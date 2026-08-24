@@ -1,29 +1,15 @@
 <?php
 
-/*
- * This file is part of the IndoRegion package.
- *
- * (c) Azis Hapidin <azishapidin.com | azishapidin@gmail.com>
- *
- */
-
 namespace App\Models;
 
-use AzisHapidin\IndoRegion\Traits\ProvinceTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
-/**
- * Province Model.
- */
 class Province extends Model
 {
-    use ProvinceTrait;
-    /**
-     * Table name.
-     *
-     * @var string
-     */
-    protected $table = 'provinces';
+    protected $table = 'indonesia_regions';
+
+    protected $primaryKey = 'code';
 
     public $incrementing = false;
 
@@ -31,15 +17,17 @@ class Province extends Model
 
     protected $keyType = 'string';
 
-    protected $fillable = ['id', 'name'];
+    protected $fillable = ['code', 'name', 'status', 'postal_code', 'search_text'];
 
-    /**
-     * Province has many regencies.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+    protected static function booted(): void
+    {
+        static::addGlobalScope('province', function (Builder $query) {
+            $query->whereRaw('CHAR_LENGTH(code) = 2');
+        });
+    }
+
     public function regencies()
     {
-        return $this->hasMany(Regency::class);
+        return $this->hasMany(Regency::class, 'code', 'code');
     }
 }

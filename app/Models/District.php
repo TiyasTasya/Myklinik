@@ -1,32 +1,15 @@
 <?php
 
-/*
- * This file is part of the IndoRegion package.
- *
- * (c) Azis Hapidin <azishapidin.com | azishapidin@gmail.com>
- *
- */
-
 namespace App\Models;
 
-use AzisHapidin\IndoRegion\Traits\DistrictTrait;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Regency;
-use App\Models\Village;
+use Illuminate\Database\Eloquent\Builder;
 
-/**
- * District Model.
- */
 class District extends Model
 {
-    use DistrictTrait;
+    protected $table = 'indonesia_regions';
 
-    /**
-     * Table name.
-     *
-     * @var string
-     */
-    protected $table = 'districts';
+    protected $primaryKey = 'code';
 
     public $incrementing = false;
 
@@ -34,34 +17,22 @@ class District extends Model
 
     protected $keyType = 'string';
 
-    protected $fillable = ['id', 'regency_id', 'name'];
+    protected $fillable = ['code', 'name', 'status', 'postal_code', 'search_text'];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'regency_id'
-    ];
-
-    /**
-     * District belongs to Regency.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function regency()
+    protected static function booted(): void
     {
-        return $this->belongsTo(Regency::class);
+        static::addGlobalScope('district', function (Builder $query) {
+            $query->whereRaw('CHAR_LENGTH(code) = 8');
+        });
     }
 
-    /**
-     * District has many villages.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+    public function regency()
+    {
+        return $this->belongsTo(Regency::class, 'code', 'code');
+    }
+
     public function villages()
     {
-        return $this->hasMany(Village::class);
+        return $this->hasMany(Village::class, 'code', 'code');
     }
 }

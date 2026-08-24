@@ -1,30 +1,15 @@
 <?php
 
-/*
- * This file is part of the IndoRegion package.
- *
- * (c) Azis Hapidin <azishapidin.com | azishapidin@gmail.com>
- *
- */
-
 namespace App\Models;
 
-use AzisHapidin\IndoRegion\Traits\RegencyTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
-/**
- * Regency Model.
- */
 class Regency extends Model
 {
-    use RegencyTrait;
+    protected $table = 'indonesia_regions';
 
-    /**
-     * Table name.
-     *
-     * @var string
-     */
-    protected $table = 'regencies';
+    protected $primaryKey = 'code';
 
     public $incrementing = false;
 
@@ -32,34 +17,22 @@ class Regency extends Model
 
     protected $keyType = 'string';
 
-    protected $fillable = ['id', 'province_id', 'name'];
+    protected $fillable = ['code', 'name', 'status', 'postal_code', 'search_text'];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'province_id'
-    ];
-
-    /**
-     * Regency belongs to Province.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function province()
+    protected static function booted(): void
     {
-        return $this->belongsTo(Province::class);
+        static::addGlobalScope('regency', function (Builder $query) {
+            $query->whereRaw('CHAR_LENGTH(code) = 5');
+        });
     }
 
-    /**
-     * Regency has many districts.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'code', 'code');
+    }
+
     public function districts()
     {
-        return $this->hasMany(District::class);
+        return $this->hasMany(District::class, 'code', 'code');
     }
 }

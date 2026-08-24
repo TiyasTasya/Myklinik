@@ -1,3 +1,3 @@
 <x-filament-panels::page>
-    <livewire:wilayah.villages-table />
+    {{ $this->table }}
 </x-filament-panels::page>

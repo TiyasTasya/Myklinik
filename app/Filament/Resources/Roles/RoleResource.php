@@ -42,11 +42,24 @@ class RoleResource extends Resource
     use Essentials\HasNavigation;
     use HasShieldFormComponents;
 
-    protected static ?string $recordTitleAttribute = 'name';
-
     public static function getCluster(): ?string
     {
         return ManajemenPengguna::class;
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return null;
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Peran';
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return 3;
     }
 
     #[Override]

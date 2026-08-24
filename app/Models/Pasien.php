@@ -57,11 +57,11 @@ class Pasien extends Model
         return $this->belongsTo(Country::class);
     }
 
-    public function tempatLahir(): BelongsTo { return $this->belongsTo(Regency::class, 'tempat_lahir_regency_id'); }
-    public function province(): BelongsTo { return $this->belongsTo(Province::class); }
-    public function regency(): BelongsTo { return $this->belongsTo(Regency::class); }
-    public function district(): BelongsTo { return $this->belongsTo(District::class); }
-    public function village(): BelongsTo { return $this->belongsTo(Village::class); }
+    public function tempatLahir(): BelongsTo { return $this->belongsTo(Regency::class, 'tempat_lahir_regency_id', 'code'); }
+    public function province(): BelongsTo { return $this->belongsTo(Province::class, 'province_id', 'code'); }
+    public function regency(): BelongsTo { return $this->belongsTo(Regency::class, 'regency_id', 'code'); }
+    public function district(): BelongsTo { return $this->belongsTo(District::class, 'district_id', 'code'); }
+    public function village(): BelongsTo { return $this->belongsTo(Village::class, 'village_id', 'code'); }
 
     public function unitEksternal(): BelongsTo { return $this->belongsTo(UnitEksternal::class, 'unit_eksternal_id'); }
     public function subUnitEksternal(): BelongsTo { return $this->belongsTo(UnitEksternal::class, 'sub_unit_eksternal_id'); }

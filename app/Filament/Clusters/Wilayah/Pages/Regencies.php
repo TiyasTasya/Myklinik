@@ -2,19 +2,29 @@
 
 namespace App\Filament\Clusters\Wilayah\Pages;
 
+use Aliziodev\IndonesiaRegions\Models\IndonesiaRegion;
 use App\Filament\Clusters\Wilayah;
-use App\Models\Province;
-use App\Models\Regency;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Table;
 
-class Regencies extends Page
+class Regencies extends Page implements HasTable
 {
+    use HasPageShield;
+    use InteractsWithTable;
+
     protected static ?string $cluster = Wilayah::class;
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-building-library';
@@ -32,42 +42,75 @@ class Regencies extends Page
 
     protected string $view = 'filament.clusters.wilayah.pages.regencies';
 
+    public function table(Table $table): Table
+    {
+        return $table
+            ->query(IndonesiaRegion::query()->whereRaw('CHAR_LENGTH(code) = 5'))
+            ->columns([
+                TextColumn::make('provinsi_name')
+                    ->label('Provinsi')
+                    ->getStateUsing(function ($record) {
+                        $provCode = substr($record->code, 0, 2);
+                        return IndonesiaRegion::where('code', $provCode)->value('name') ?? '-';
+                    }),
+                TextColumn::make('code')
+                    ->label('Kode Kabupaten/Kota')
+                    ->searchable(),
+                TextColumn::make('name')
+                    ->label('Nama Kabupaten/Kota')
+                    ->searchable(),
+            ])
+            ->defaultSort('code', 'asc')
+            ->actions([
+                ActionGroup::make([
+                    EditAction::make()->form([
+                        TextInput::make('name')->label('Nama Kabupaten/Kota')->required()->maxLength(50),
+                    ]),
+                    DeleteAction::make(),
+                ])
+            ]);
+    }
+
     protected function getHeaderActions(): array
     {
         return [
             CreateAction::make()
-                ->label('Tambah Kab/Kota')
+                ->label('Tambah Kabupaten/Kota')
                 ->icon(Heroicon::Plus)
-                ->model(Regency::class)
+                ->model(IndonesiaRegion::class)
                 ->form([
-                    Select::make('province_id')
+                    Select::make('province_code')
                         ->label('Provinsi')
-                        ->options(Province::orderBy('name')->pluck('name', 'id'))
+                        ->options(IndonesiaRegion::whereRaw('CHAR_LENGTH(code) = 2')->orderBy('name')->pluck('name', 'code'))
                         ->searchable()
                         ->required()
                         ->live()
                         ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
                             if (!$state) {
-                                $set('id', '');
+                                $set('code', '');
                                 return;
                             }
-                            $lastId = Regency::where('province_id', $state)->orderByDesc('id')->value('id');
-                            $suffix = $lastId ? (int) substr($lastId, 2) + 1 : 1;
-                            $set('id', $state . str_pad($suffix, 2, '0', STR_PAD_LEFT));
+                            $lastCode = IndonesiaRegion::where('code', 'like', $state . '.%')
+                                ->whereRaw('CHAR_LENGTH(code) = 5')
+                                ->orderByDesc('code')
+                                ->value('code');
+                            $suffix = $lastCode ? (int) substr($lastCode, -2) + 1 : 1;
+                            $set('code', $state . '.' . str_pad($suffix, 2, '0', STR_PAD_LEFT));
                         }),
-                    TextInput::make('id')
-                        ->label('Kode (4 digit)')
+                    TextInput::make('code')
+                        ->label('Kode / ID Wilayah')
                         ->required()
-                        ->maxLength(4)
-                        ->unique(Regency::class, 'id')
+                        ->unique(IndonesiaRegion::class, 'code')
                         ->helperText('Terisi otomatis saat provinsi dipilih'),
                     TextInput::make('name')
-                        ->label('Nama Kab/Kota')
+                        ->label('Nama Kabupaten/Kota')
                         ->required()
                         ->maxLength(50),
                 ])
-                ->using(function (array $data): Regency {
-                    return Regency::create($data);
+                ->using(function (array $data): IndonesiaRegion {
+                    unset($data['province_code']);
+                    $data['status'] = 'active';
+                    return IndonesiaRegion::create($data);
                 }),
         ];
     }

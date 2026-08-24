@@ -1,31 +1,15 @@
 <?php
 
-/*
- * This file is part of the IndoRegion package.
- *
- * (c) Azis Hapidin <azishapidin.com | azishapidin@gmail.com>
- *
- */
-
 namespace App\Models;
 
-use AzisHapidin\IndoRegion\Traits\VillageTrait;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\District;
+use Illuminate\Database\Eloquent\Builder;
 
-/**
- * Village Model.
- */
 class Village extends Model
 {
-    use VillageTrait;
+    protected $table = 'indonesia_regions';
 
-    /**
-     * Table name.
-     *
-     * @var string
-     */
-    protected $table = 'villages';
+    protected $primaryKey = 'code';
 
     public $incrementing = false;
 
@@ -33,24 +17,23 @@ class Village extends Model
 
     protected $keyType = 'string';
 
-    protected $fillable = ['id', 'district_id', 'name'];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'district_id'
+    protected $fillable = [
+        'code',
+        'name',
+        'postal_code',
+        'status',
+        'search_text',
     ];
 
-	/**
-     * Village belongs to District.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+    protected static function booted(): void
+    {
+        static::addGlobalScope('village', function (Builder $query) {
+            $query->whereRaw('CHAR_LENGTH(code) = 13');
+        });
+    }
+
     public function district()
     {
-        return $this->belongsTo(District::class);
+        return $this->belongsTo(District::class, 'code', 'code');
     }
 }

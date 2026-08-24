@@ -49,7 +49,12 @@ class AdminPanelProvider extends PanelProvider
                 Dashboard::class,
             ])
             ->plugins([
-                FilamentShieldPlugin::make(),
+                FilamentShieldPlugin::make()
+                    ->modelLabel('Peran')
+                    ->pluralModelLabel('Peran')
+                    ->navigationLabel('Peran')
+                    ->navigationGroup(null)
+                    ->navigationSort(3),
                 RefreshSidebarPlugin::make(),
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')

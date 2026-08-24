@@ -63,6 +63,13 @@ class PegawaiForm
                             ->label('Tanggal Lahir')
                             ->displayFormat('d/m/Y'),
 
+                        Select::make('user_id')
+                            ->label('Akun Pengguna (Login)')
+                            ->relationship('user', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->helperText('Opsional: pilih akun login untuk pegawai ini'),
+
                         Select::make('jenis_kelamin')
                             ->label('Jenis Kelamin')
                             ->options([
@@ -160,12 +167,12 @@ class PegawaiForm
 
                                 Select::make('province_id_kartu')
                                     ->label('Propinsi')
-                                    ->options(fn() => Province::pluck('name', 'id'))
+                                    ->options(fn() => Province::pluck('name', 'code'))
                                     ->searchable()
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         $regencyId = $get('regency_id_kartu');
-                                        if ($regencyId && ! Regency::where('id', $regencyId)->where('province_id', $get('province_id_kartu'))->exists()) {
+                                        if ($regencyId && ! Regency::where('code', $regencyId)->where('code', 'like', $get('province_id_kartu') . '.%')->exists()) {
                                             $set('regency_id_kartu', null);
                                             $set('district_id_kartu', null);
                                             $set('village_id_kartu', null);
@@ -175,13 +182,13 @@ class PegawaiForm
                                 Select::make('regency_id_kartu')
                                     ->label('Kabupaten / Kota')
                                     ->options(fn($get) => $get('province_id_kartu')
-                                        ? Regency::where('province_id', $get('province_id_kartu'))->pluck('name', 'id')
-                                        : Regency::all()->pluck('name', 'id'))
+                                        ? Regency::where('code', 'like', $get('province_id_kartu') . '.%')->pluck('name', 'code')
+                                        : Regency::pluck('name', 'code'))
                                     ->searchable()
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         $districtId = $get('district_id_kartu');
-                                        if ($districtId && ! District::where('id', $districtId)->where('regency_id', $get('regency_id_kartu'))->exists()) {
+                                        if ($districtId && ! District::where('code', $districtId)->where('code', 'like', $get('regency_id_kartu') . '.%')->exists()) {
                                             $set('district_id_kartu', null);
                                             $set('village_id_kartu', null);
                                         }
@@ -190,13 +197,13 @@ class PegawaiForm
                                 Select::make('district_id_kartu')
                                     ->label('Kecamatan')
                                     ->options(fn($get) => $get('regency_id_kartu')
-                                        ? District::where('regency_id', $get('regency_id_kartu'))->pluck('name', 'id')
-                                        : District::all()->pluck('name', 'id'))
+                                        ? District::where('code', 'like', $get('regency_id_kartu') . '.%')->pluck('name', 'code')
+                                        : District::pluck('name', 'code'))
                                     ->searchable()
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         $villageId = $get('village_id_kartu');
-                                        if ($villageId && ! Village::where('id', $villageId)->where('district_id', $get('district_id_kartu'))->exists()) {
+                                        if ($villageId && ! Village::where('code', $villageId)->where('code', 'like', $get('district_id_kartu') . '.%')->exists()) {
                                             $set('village_id_kartu', null);
                                         }
                                     }),
@@ -204,8 +211,8 @@ class PegawaiForm
                                 Select::make('village_id_kartu')
                                     ->label('Kelurahan / Desa')
                                     ->options(fn($get) => $get('district_id_kartu')
-                                        ? Village::where('district_id', $get('district_id_kartu'))->pluck('name', 'id')
-                                        : Village::all()->pluck('name', 'id'))
+                                        ? Village::where('code', 'like', $get('district_id_kartu') . '.%')->pluck('name', 'code')
+                                        : Village::pluck('name', 'code'))
                                     ->searchable(),
                             ]),
 
@@ -230,7 +237,7 @@ class PegawaiForm
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         $regencyId = $get('regency_id');
-                                        if ($regencyId && ! Regency::where('id', $regencyId)->where('province_id', $get('province_id'))->exists()) {
+                                        if ($regencyId && ! Regency::where('code', $regencyId)->where('code', 'like', $get('province_id') . '.%')->exists()) {
                                             $set('regency_id', null);
                                             $set('district_id', null);
                                             $set('village_id', null);
@@ -240,13 +247,13 @@ class PegawaiForm
                                 Select::make('regency_id')
                                     ->label('Kabupaten / Kota')
                                     ->options(fn($get) => $get('province_id')
-                                        ? Regency::where('province_id', $get('province_id'))->pluck('name', 'id')
-                                        : Regency::all()->pluck('name', 'id'))
+                                        ? Regency::where('code', 'like', $get('province_id') . '.%')->pluck('name', 'code')
+                                        : Regency::pluck('name', 'code'))
                                     ->searchable()
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         $districtId = $get('district_id');
-                                        if ($districtId && ! District::where('id', $districtId)->where('regency_id', $get('regency_id'))->exists()) {
+                                        if ($districtId && ! District::where('code', $districtId)->where('code', 'like', $get('regency_id') . '.%')->exists()) {
                                             $set('district_id', null);
                                             $set('village_id', null);
                                         }
@@ -255,13 +262,13 @@ class PegawaiForm
                                 Select::make('district_id')
                                     ->label('Kecamatan')
                                     ->options(fn($get) => $get('regency_id')
-                                        ? District::where('regency_id', $get('regency_id'))->pluck('name', 'id')
-                                        : District::all()->pluck('name', 'id'))
+                                        ? District::where('code', 'like', $get('regency_id') . '.%')->pluck('name', 'code')
+                                        : District::pluck('name', 'code'))
                                     ->searchable()
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         $villageId = $get('village_id');
-                                        if ($villageId && ! Village::where('id', $villageId)->where('district_id', $get('district_id'))->exists()) {
+                                        if ($villageId && ! Village::where('code', $villageId)->where('code', 'like', $get('district_id') . '.%')->exists()) {
                                             $set('village_id', null);
                                         }
                                     }),
@@ -269,8 +276,8 @@ class PegawaiForm
                                 Select::make('village_id')
                                     ->label('Kelurahan / Desa')
                                     ->options(fn($get) => $get('district_id')
-                                        ? Village::where('district_id', $get('district_id'))->pluck('name', 'id')
-                                        : Village::all()->pluck('name', 'id'))
+                                        ? Village::where('code', 'like', $get('district_id') . '.%')->pluck('name', 'code')
+                                        : Village::pluck('name', 'code'))
                                     ->searchable(),
                             ]),
                     ]),
