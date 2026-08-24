@@ -26,17 +26,14 @@ class PegawaisTable
                 TextColumn::make('user.name')
                     ->label('Akun User')
                     ->searchable()
-                    ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('nip')
                     ->label('NIP')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('nama_lengkap')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('tempat_tanggal_lahir')
                     ->searchable()
@@ -51,8 +48,7 @@ class PegawaisTable
                     }),
 
                 TextColumn::make('profesi')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('status')
                     ->badge()
@@ -61,17 +57,14 @@ class PegawaisTable
                         'Cuti' => 'warning',
                         'Nonaktif' => 'danger',
                         default => 'gray',
-                    })
-                    ->sortable(),
+                    }),
 
                 TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->recordUrl(null)

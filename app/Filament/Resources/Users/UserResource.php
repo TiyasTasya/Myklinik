@@ -31,7 +31,6 @@ class UserResource extends Resource
         return 'User';
     }
 
-
     public static function getPluralModelLabel(): string
     {
         return 'Daftar User';

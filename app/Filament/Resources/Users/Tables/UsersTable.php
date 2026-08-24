@@ -23,13 +23,11 @@ class UsersTable
 
                 TextColumn::make('name')
                     ->searchable()
-                    ->sortable()
                     ->extraAttributes(['class' => 'py-1']),
 
                 TextColumn::make('email')
                     ->label('Email address')
                     ->searchable()
-                    ->sortable()
                     ->extraAttributes(['class' => 'py-1']),
 
                 TextColumn::make('roles.name')
@@ -39,19 +37,16 @@ class UsersTable
 
                 TextColumn::make('email_verified_at')
                     ->dateTime()
-                    ->sortable()
                     ->placeholder('Belum Verifikasi')
                     ->extraAttributes(['class' => 'py-1']),
 
                 TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->extraAttributes(['class' => 'py-1']),
 
                 TextColumn::make('updated_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->extraAttributes(['class' => 'py-1']),
             ])
