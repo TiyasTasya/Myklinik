@@ -46,7 +46,9 @@ Dibangun menggunakan stack teknologi terkini: **Laravel 13**, **Filament v5**, *
 - **Daftar Desa / Kelurahan**: Database lengkap kelurahan dan desa beserta kode pos.
 - Dilengkapi proteksi otorisasi halaman (*Page Shield*).
 
-### 5. ⚙️ Master Data Referensi
+### 5. ⚙️ Master Pengaturan (*Cluster*)
+- **Pengaturan (*Cluster*)**:
+  - **Umum & Branding**: Pengelolaan nama klinik/aplikasi, logo aplikasi (Light & Dark Mode), ukuran logo, dan favicon browser secara langsung melalui panel admin.
 - **Poli / Unit Layanan**: Pengaturan poli klinik (Poli Umum, Gigi, KIA, dll.).
 - **Tindakan Medis**: Tarif dan katalog tindakan medis dokter/perawat.
 - **Unit Kerja / Eksternal**: Pengelolaan struktur unit dan sub-unit organisasi.
