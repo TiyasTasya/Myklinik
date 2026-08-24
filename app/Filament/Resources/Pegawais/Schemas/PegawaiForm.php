@@ -33,9 +33,8 @@ class PegawaiForm
                     ->afterHeader([
                         Toggle::make('status')
                             ->label('Status')
-                            ->default(true)
                             ->inline(false)
-                            ->formatStateUsing(fn($state) => $state === 'Aktif')
+                            ->formatStateUsing(fn($state) => $state === 'Aktif' || $state === true || $state === 1)
                             ->dehydrateStateUsing(fn($state) => $state ? 'Aktif' : 'Nonaktif'),
                     ])
                     ->schema([
@@ -67,7 +66,7 @@ class PegawaiForm
                         Select::make('jenis_kelamin')
                             ->label('Jenis Kelamin')
                             ->options([
-                                'Laki-Laki' => 'Laki-Laki',
+                                'Laki-laki' => 'Laki-laki',
                                 'Perempuan' => 'Perempuan',
                             ])
                             ->required(),
@@ -168,6 +167,8 @@ class PegawaiForm
                                         $regencyId = $get('regency_id_kartu');
                                         if ($regencyId && ! Regency::where('id', $regencyId)->where('province_id', $get('province_id_kartu'))->exists()) {
                                             $set('regency_id_kartu', null);
+                                            $set('district_id_kartu', null);
+                                            $set('village_id_kartu', null);
                                         }
                                     }),
 
@@ -175,13 +176,14 @@ class PegawaiForm
                                     ->label('Kabupaten / Kota')
                                     ->options(fn($get) => $get('province_id_kartu')
                                         ? Regency::where('province_id', $get('province_id_kartu'))->pluck('name', 'id')
-                                        : [])
+                                        : Regency::all()->pluck('name', 'id'))
                                     ->searchable()
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         $districtId = $get('district_id_kartu');
                                         if ($districtId && ! District::where('id', $districtId)->where('regency_id', $get('regency_id_kartu'))->exists()) {
                                             $set('district_id_kartu', null);
+                                            $set('village_id_kartu', null);
                                         }
                                     }),
 
@@ -189,7 +191,7 @@ class PegawaiForm
                                     ->label('Kecamatan')
                                     ->options(fn($get) => $get('regency_id_kartu')
                                         ? District::where('regency_id', $get('regency_id_kartu'))->pluck('name', 'id')
-                                        : [])
+                                        : District::all()->pluck('name', 'id'))
                                     ->searchable()
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
@@ -203,7 +205,7 @@ class PegawaiForm
                                     ->label('Kelurahan / Desa')
                                     ->options(fn($get) => $get('district_id_kartu')
                                         ? Village::where('district_id', $get('district_id_kartu'))->pluck('name', 'id')
-                                        : [])
+                                        : Village::all()->pluck('name', 'id'))
                                     ->searchable(),
                             ]),
 
@@ -230,6 +232,8 @@ class PegawaiForm
                                         $regencyId = $get('regency_id');
                                         if ($regencyId && ! Regency::where('id', $regencyId)->where('province_id', $get('province_id'))->exists()) {
                                             $set('regency_id', null);
+                                            $set('district_id', null);
+                                            $set('village_id', null);
                                         }
                                     }),
 
@@ -237,13 +241,14 @@ class PegawaiForm
                                     ->label('Kabupaten / Kota')
                                     ->options(fn($get) => $get('province_id')
                                         ? Regency::where('province_id', $get('province_id'))->pluck('name', 'id')
-                                        : [])
+                                        : Regency::all()->pluck('name', 'id'))
                                     ->searchable()
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         $districtId = $get('district_id');
                                         if ($districtId && ! District::where('id', $districtId)->where('regency_id', $get('regency_id'))->exists()) {
                                             $set('district_id', null);
+                                            $set('village_id', null);
                                         }
                                     }),
 
@@ -251,7 +256,7 @@ class PegawaiForm
                                     ->label('Kecamatan')
                                     ->options(fn($get) => $get('regency_id')
                                         ? District::where('regency_id', $get('regency_id'))->pluck('name', 'id')
-                                        : [])
+                                        : District::all()->pluck('name', 'id'))
                                     ->searchable()
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
@@ -265,7 +270,7 @@ class PegawaiForm
                                     ->label('Kelurahan / Desa')
                                     ->options(fn($get) => $get('district_id')
                                         ? Village::where('district_id', $get('district_id'))->pluck('name', 'id')
-                                        : [])
+                                        : Village::all()->pluck('name', 'id'))
                                     ->searchable(),
                             ]),
                     ]),

@@ -93,7 +93,7 @@ class PasienForm
                             ->relationship('country', 'name')
                             ->searchable()
                             ->preload()
-                            ->default(fn() => Country::where('code', 'ID')->value('id'))
+                            ->default(fn($record) => $record ? $record->country_id : Country::where('code', 'ID')->value('id'))
                             ->columnSpanFull(),
 
                         Select::make('status_pasien')
@@ -102,7 +102,7 @@ class PasienForm
                                 'Hidup' => 'Hidup / Aktif',
                                 'Meninggal' => 'Meninggal',
                             ])
-                            ->default('Hidup')
+                            ->default(fn($record) => $record ? $record->status_pasien : 'Hidup')
                             ->required()
                             ->columnSpanFull(),
 
@@ -158,34 +158,34 @@ class PasienForm
                                 ->searchable()
                                 ->preload()
                                 ->live()
-                                ->afterStateUpdated(fn($set) => $set('regency_id', null))
+                                ->afterStateUpdated(fn($state, $set, $old) => $old !== null ? $set('regency_id', null) : null)
                                 ->columnSpanFull(),
 
                             Select::make('regency_id')
                                 ->label('Kabupaten / Kota')
                                 ->options(fn($get) => $get('province_id')
                                     ? Regency::where('province_id', $get('province_id'))->pluck('name', 'id')
-                                    : [])
+                                    : Regency::all()->pluck('name', 'id'))
                                 ->searchable()
                                 ->live()
-                                ->afterStateUpdated(fn($set) => $set('district_id', null))
+                                ->afterStateUpdated(fn($state, $set, $old) => $old !== null ? $set('district_id', null) : null)
                                 ->columnSpanFull(),
 
                             Select::make('district_id')
                                 ->label('Kecamatan')
                                 ->options(fn($get) => $get('regency_id')
                                     ? District::where('regency_id', $get('regency_id'))->pluck('name', 'id')
-                                    : [])
+                                    : District::all()->pluck('name', 'id'))
                                 ->searchable()
                                 ->live()
-                                ->afterStateUpdated(fn($set) => $set('village_id', null))
+                                ->afterStateUpdated(fn($state, $set, $old) => $old !== null ? $set('village_id', null) : null)
                                 ->columnSpanFull(),
 
                             Select::make('village_id')
                                 ->label('Kelurahan / Desa')
                                 ->options(fn($get) => $get('district_id')
                                     ? Village::where('district_id', $get('district_id'))->pluck('name', 'id')
-                                    : [])
+                                    : Village::all()->pluck('name', 'id'))
                                 ->searchable()
                                 ->columnSpanFull(),
                         ]),
@@ -222,7 +222,7 @@ class PasienForm
                                 ->options(fn() => \App\Models\Province::pluck('name', 'id'))
                                 ->searchable()
                                 ->live()
-                                ->afterStateUpdated(fn($set) => $set('regency_id_kartu', null))
+                                ->afterStateUpdated(fn($state, $set, $old) => $old !== null ? $set('regency_id_kartu', null) : null)
                                 ->columnSpanFull()
                                 ->hidden(fn($get) => $get('sama_dengan_alamat_sekarang')),
 
@@ -230,10 +230,10 @@ class PasienForm
                                 ->label('Kabupaten / Kota')
                                 ->options(fn($get) => $get('province_id_kartu')
                                     ? Regency::where('province_id', $get('province_id_kartu'))->pluck('name', 'id')
-                                    : [])
+                                    : Regency::all()->pluck('name', 'id'))
                                 ->searchable()
                                 ->live()
-                                ->afterStateUpdated(fn($set) => $set('district_id_kartu', null))
+                                ->afterStateUpdated(fn($state, $set, $old) => $old !== null ? $set('district_id_kartu', null) : null)
                                 ->columnSpanFull()
                                 ->hidden(fn($get) => $get('sama_dengan_alamat_sekarang')),
 
@@ -241,10 +241,10 @@ class PasienForm
                                 ->label('Kecamatan')
                                 ->options(fn($get) => $get('regency_id_kartu')
                                     ? District::where('regency_id', $get('regency_id_kartu'))->pluck('name', 'id')
-                                    : [])
+                                    : District::all()->pluck('name', 'id'))
                                 ->searchable()
                                 ->live()
-                                ->afterStateUpdated(fn($set) => $set('village_id_kartu', null))
+                                ->afterStateUpdated(fn($state, $set, $old) => $old !== null ? $set('village_id_kartu', null) : null)
                                 ->columnSpanFull()
                                 ->hidden(fn($get) => $get('sama_dengan_alamat_sekarang')),
 
@@ -252,7 +252,7 @@ class PasienForm
                                 ->label('Kelurahan / Desa')
                                 ->options(fn($get) => $get('district_id_kartu')
                                     ? Village::where('district_id', $get('district_id_kartu'))->pluck('name', 'id')
-                                    : [])
+                                    : Village::all()->pluck('name', 'id'))
                                 ->searchable()
                                 ->columnSpanFull()
                                 ->hidden(fn($get) => $get('sama_dengan_alamat_sekarang')),
@@ -331,34 +331,34 @@ class PasienForm
                                         ->options(fn() => \App\Models\Province::pluck('name', 'id'))
                                         ->searchable()
                                         ->live()
-                                        ->afterStateUpdated(fn($set) => $set('regency_id', null))
+                                        ->afterStateUpdated(fn($state, $set, $old) => $old !== null ? $set('regency_id', null) : null)
                                         ->columnSpanFull(),
 
                                     Select::make('regency_id')
                                         ->label('Kabupaten / Kota')
                                         ->options(fn($get) => $get('province_id')
                                             ? Regency::where('province_id', $get('province_id'))->pluck('name', 'id')
-                                            : [])
+                                            : Regency::all()->pluck('name', 'id'))
                                         ->searchable()
                                         ->live()
-                                        ->afterStateUpdated(fn($set) => $set('district_id', null))
+                                        ->afterStateUpdated(fn($state, $set, $old) => $old !== null ? $set('district_id', null) : null)
                                         ->columnSpanFull(),
 
                                     Select::make('district_id')
                                         ->label('Kecamatan')
                                         ->options(fn($get) => $get('regency_id')
                                             ? District::where('regency_id', $get('regency_id'))->pluck('name', 'id')
-                                            : [])
+                                            : District::all()->pluck('name', 'id'))
                                         ->searchable()
                                         ->live()
-                                        ->afterStateUpdated(fn($set) => $set('village_id', null))
+                                        ->afterStateUpdated(fn($state, $set, $old) => $old !== null ? $set('village_id', null) : null)
                                         ->columnSpanFull(),
 
                                     Select::make('village_id')
                                         ->label('Kelurahan / Desa')
                                         ->options(fn($get) => $get('district_id')
                                             ? Village::where('district_id', $get('district_id'))->pluck('name', 'id')
-                                            : [])
+                                            : Village::all()->pluck('name', 'id'))
                                         ->searchable()
                                         ->columnSpanFull(),
 

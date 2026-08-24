@@ -14,12 +14,24 @@ class Pegawai extends Model
     protected $fillable = [
         'user_id',
         'nip',
-        'nama_lengkap',
+        'gelar_depan', 'nama_lengkap', 'gelar_belakang',
+        'tempat_lahir_regency_id', 'tanggal_lahir',
+        'jenis_kelamin', 'agama_detail_id',
+        'profesi', 'jenis_spesialis_detail_id', 'poli_id',
+        'no_str', 'str_berlaku_sampai', 'no_sip', 'sip_berlaku_sampai',
+        'jenis_kartu_detail_id', 'nomor_kartu',
+        'alamat_kartu', 'rt_kartu', 'rw_kartu', 'kode_pos_kartu',
+        'province_id_kartu', 'regency_id_kartu', 'district_id_kartu', 'village_id_kartu',
+        'alamat', 'rt', 'rw', 'kode_pos',
+        'province_id', 'regency_id', 'district_id', 'village_id',
         'tempat_tanggal_lahir',
-        'jenis_kelamin',
-        'alamat',
-        'profesi',
         'status',
+    ];
+
+    protected $casts = [
+        'tanggal_lahir'      => 'datetime:Y-m-d',
+        'str_berlaku_sampai' => 'datetime:Y-m-d',
+        'sip_berlaku_sampai' => 'datetime:Y-m-d',
     ];
 
     public function user()

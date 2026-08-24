@@ -24,7 +24,7 @@ class Pasien extends Model
     protected $casts = [
         'pasien_tidak_dikenal' => 'boolean',
         'sama_dengan_alamat_sekarang' => 'boolean',
-        'tanggal_lahir' => 'date',
+        'tanggal_lahir' => 'datetime:Y-m-d',
     ];
 
     public function kontaks(): HasMany
