@@ -21,12 +21,16 @@ return new class extends Migration
 
         $driver = DB::getDriverName();
 
-        if ($driver === 'mysql') {
-            DB::statement('ALTER TABLE indonesia_regions ADD FULLTEXT INDEX idx_region_search_text (search_text)');
-        }
+        try {
+            if ($driver === 'mysql') {
+                DB::statement('ALTER TABLE indonesia_regions ADD FULLTEXT INDEX idx_region_search_text (search_text)');
+            }
 
-        if ($driver === 'pgsql') {
-            DB::statement("CREATE INDEX IF NOT EXISTS idx_region_search_text ON indonesia_regions USING GIN (to_tsvector('simple', COALESCE(search_text, '')))");
+            if ($driver === 'pgsql') {
+                DB::statement("CREATE INDEX IF NOT EXISTS idx_region_search_text ON indonesia_regions USING GIN (to_tsvector('simple', COALESCE(search_text, '')))");
+            }
+        } catch (\Throwable $e) {
+            // Silently continue if engine doesn't support fulltext index on this table type
         }
     }
 
@@ -41,12 +45,15 @@ return new class extends Migration
         if ($driver === 'mysql') {
             try {
                 DB::statement('ALTER TABLE indonesia_regions DROP INDEX idx_region_search_text');
-            } catch (Throwable) {
+            } catch (\Throwable) {
             }
         }
 
         if ($driver === 'pgsql') {
-            DB::statement('DROP INDEX IF EXISTS idx_region_search_text');
+            try {
+                DB::statement('DROP INDEX IF EXISTS idx_region_search_text');
+            } catch (\Throwable) {
+            }
         }
 
         if (Schema::hasColumn('indonesia_regions', 'search_text')) {

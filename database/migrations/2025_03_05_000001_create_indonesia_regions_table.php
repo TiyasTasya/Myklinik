@@ -21,30 +21,34 @@ class CreateIndonesiaRegionsTable extends Migration
 
         $driver = DB::getDriverName();
 
-        switch ($driver) {
-            case 'mysql':
-                DB::statement('CREATE INDEX idx_region_code_length ON indonesia_regions((LENGTH(code)))');
-                DB::statement('CREATE INDEX idx_region_code_province ON indonesia_regions((LEFT(code, 2)))');
-                DB::statement('CREATE INDEX idx_region_code_city ON indonesia_regions((LEFT(code, 5)))');
-                DB::statement('CREATE INDEX idx_region_code_district ON indonesia_regions((LEFT(code, 8)))');
-                break;
+        try {
+            switch ($driver) {
+                case 'mysql':
+                    DB::statement('CREATE INDEX idx_region_code_length ON indonesia_regions((LENGTH(code)))');
+                    DB::statement('CREATE INDEX idx_region_code_province ON indonesia_regions((LEFT(code, 2)))');
+                    DB::statement('CREATE INDEX idx_region_code_city ON indonesia_regions((LEFT(code, 5)))');
+                    DB::statement('CREATE INDEX idx_region_code_district ON indonesia_regions((LEFT(code, 8)))');
+                    break;
 
-            case 'pgsql':
-                DB::statement('CREATE INDEX idx_region_code_length ON indonesia_regions (LENGTH(code))');
-                DB::statement('CREATE INDEX idx_region_code_province ON indonesia_regions (SUBSTRING(code FROM 1 FOR 2))');
-                DB::statement('CREATE INDEX idx_region_code_city ON indonesia_regions (SUBSTRING(code FROM 1 FOR 5))');
-                DB::statement('CREATE INDEX idx_region_code_district ON indonesia_regions (SUBSTRING(code FROM 1 FOR 8))');
-                break;
+                case 'pgsql':
+                    DB::statement('CREATE INDEX idx_region_code_length ON indonesia_regions (LENGTH(code))');
+                    DB::statement('CREATE INDEX idx_region_code_province ON indonesia_regions (SUBSTRING(code FROM 1 FOR 2))');
+                    DB::statement('CREATE INDEX idx_region_code_city ON indonesia_regions (SUBSTRING(code FROM 1 FOR 5))');
+                    DB::statement('CREATE INDEX idx_region_code_district ON indonesia_regions (SUBSTRING(code FROM 1 FOR 8))');
+                    break;
 
-            case 'sqlite':
-                break;
+                case 'sqlite':
+                    break;
 
-            case 'sqlsrv':
-                DB::statement('CREATE INDEX idx_region_code_length ON indonesia_regions (LEN(code))');
-                DB::statement('CREATE INDEX idx_region_code_province ON indonesia_regions (LEFT(code, 2))');
-                DB::statement('CREATE INDEX idx_region_code_city ON indonesia_regions (LEFT(code, 5))');
-                DB::statement('CREATE INDEX idx_region_code_district ON indonesia_regions (LEFT(code, 8))');
-                break;
+                case 'sqlsrv':
+                    DB::statement('CREATE INDEX idx_region_code_length ON indonesia_regions (LEN(code))');
+                    DB::statement('CREATE INDEX idx_region_code_province ON indonesia_regions (LEFT(code, 2))');
+                    DB::statement('CREATE INDEX idx_region_code_city ON indonesia_regions (LEFT(code, 5))');
+                    DB::statement('CREATE INDEX idx_region_code_district ON indonesia_regions (LEFT(code, 8))');
+                    break;
+            }
+        } catch (\Throwable $e) {
+            // Abaikan jika database engine (seperti MariaDB di XAMPP atau MySQL versi lama) tidak mendukung functional expression index
         }
     }
 
