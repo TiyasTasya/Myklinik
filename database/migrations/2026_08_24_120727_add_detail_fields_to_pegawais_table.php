@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('gelar_depan')->nullable()->after('nip');
             $table->string('gelar_belakang')->nullable()->after('nama_lengkap');
 
-            $table->char('tempat_lahir_regency_id', 4)->nullable()->after('tempat_tanggal_lahir');
-            $table->foreign('tempat_lahir_regency_id')->references('id')->on('regencies')->nullOnDelete();
+            $table->string('tempat_lahir_regency_id', 20)->nullable()->after('tempat_tanggal_lahir');
+            $table->foreign('tempat_lahir_regency_id')->references('code')->on('indonesia_regions')->nullOnDelete();
             $table->date('tanggal_lahir')->nullable()->after('tempat_lahir_regency_id');
 
             $table->foreignId('agama_detail_id')->nullable()->after('jenis_kelamin')->constrained('referensi_details')->nullOnDelete();
@@ -37,27 +37,27 @@ return new class extends Migration
             $table->string('rt_kartu', 5)->nullable()->after('alamat_kartu');
             $table->string('rw_kartu', 5)->nullable()->after('rt_kartu');
             $table->string('kode_pos_kartu', 10)->nullable()->after('rw_kartu');
-            $table->char('province_id_kartu', 2)->nullable()->after('kode_pos_kartu');
-            $table->char('regency_id_kartu', 4)->nullable()->after('province_id_kartu');
-            $table->char('district_id_kartu', 7)->nullable()->after('regency_id_kartu');
-            $table->char('village_id_kartu', 10)->nullable()->after('district_id_kartu');
-            $table->foreign('province_id_kartu')->references('id')->on('provinces')->nullOnDelete();
-            $table->foreign('regency_id_kartu')->references('id')->on('regencies')->nullOnDelete();
-            $table->foreign('district_id_kartu')->references('id')->on('districts')->nullOnDelete();
-            $table->foreign('village_id_kartu')->references('id')->on('villages')->nullOnDelete();
+            $table->string('province_id_kartu', 20)->nullable()->after('kode_pos_kartu');
+            $table->string('regency_id_kartu', 20)->nullable()->after('province_id_kartu');
+            $table->string('district_id_kartu', 20)->nullable()->after('regency_id_kartu');
+            $table->string('village_id_kartu', 20)->nullable()->after('district_id_kartu');
+            $table->foreign('province_id_kartu')->references('code')->on('indonesia_regions')->nullOnDelete();
+            $table->foreign('regency_id_kartu')->references('code')->on('indonesia_regions')->nullOnDelete();
+            $table->foreign('district_id_kartu')->references('code')->on('indonesia_regions')->nullOnDelete();
+            $table->foreign('village_id_kartu')->references('code')->on('indonesia_regions')->nullOnDelete();
 
             // Alamat berjenjang
             $table->string('rt', 5)->nullable()->after('alamat');
             $table->string('rw', 5)->nullable()->after('rt');
             $table->string('kode_pos', 10)->nullable()->after('rw');
-            $table->char('province_id', 2)->nullable()->after('kode_pos');
-            $table->char('regency_id', 4)->nullable()->after('province_id');
-            $table->char('district_id', 7)->nullable()->after('regency_id');
-            $table->char('village_id', 10)->nullable()->after('district_id');
-            $table->foreign('province_id')->references('id')->on('provinces')->nullOnDelete();
-            $table->foreign('regency_id')->references('id')->on('regencies')->nullOnDelete();
-            $table->foreign('district_id')->references('id')->on('districts')->nullOnDelete();
-            $table->foreign('village_id')->references('id')->on('villages')->nullOnDelete();
+            $table->string('province_id', 20)->nullable()->after('kode_pos');
+            $table->string('regency_id', 20)->nullable()->after('province_id');
+            $table->string('district_id', 20)->nullable()->after('regency_id');
+            $table->string('village_id', 20)->nullable()->after('district_id');
+            $table->foreign('province_id')->references('code')->on('indonesia_regions')->nullOnDelete();
+            $table->foreign('regency_id')->references('code')->on('indonesia_regions')->nullOnDelete();
+            $table->foreign('district_id')->references('code')->on('indonesia_regions')->nullOnDelete();
+            $table->foreign('village_id')->references('code')->on('indonesia_regions')->nullOnDelete();
         });
     }
 

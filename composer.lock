@@ -57,16 +57,16 @@
         },
         {
             "name": "aliziodev/laravel-indonesia-regions",
-            "version": "v1.0.76",
+            "version": "v1.0.77",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aliziodev/laravel-indonesia-regions.git",
-                "reference": "49260d5974d742a1d69a06a4e720d63eb3d98c5b"
+                "reference": "bd944c65442dbece9e606a66103e89f223e76da3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aliziodev/laravel-indonesia-regions/zipball/49260d5974d742a1d69a06a4e720d63eb3d98c5b",
-                "reference": "49260d5974d742a1d69a06a4e720d63eb3d98c5b",
+                "url": "https://api.github.com/repos/aliziodev/laravel-indonesia-regions/zipball/bd944c65442dbece9e606a66103e89f223e76da3",
+                "reference": "bd944c65442dbece9e606a66103e89f223e76da3",
                 "shasum": ""
             },
             "require": {
@@ -132,7 +132,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-19T04:21:33+00:00"
+            "time": "2026-08-25T04:24:13+00:00"
         },
         {
             "name": "anourvalar/eloquent-serialize",
@@ -11583,12 +11583,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.3"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }

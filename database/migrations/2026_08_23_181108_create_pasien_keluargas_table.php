@@ -29,14 +29,14 @@ return new class extends Migration
             $table->string('rt', 5)->nullable();
             $table->string('rw', 5)->nullable();
             $table->string('kode_pos', 10)->nullable();
-            $table->char('province_id', 2)->nullable();
-            $table->char('regency_id', 4)->nullable();
-            $table->char('district_id', 7)->nullable();
-            $table->char('village_id', 10)->nullable();
-            $table->foreign('province_id')->references('id')->on('provinces')->nullOnDelete();
-            $table->foreign('regency_id')->references('id')->on('regencies')->nullOnDelete();
-            $table->foreign('district_id')->references('id')->on('districts')->nullOnDelete();
-            $table->foreign('village_id')->references('id')->on('villages')->nullOnDelete();
+            $table->string('province_id', 20)->nullable();
+            $table->string('regency_id', 20)->nullable();
+            $table->string('district_id', 20)->nullable();
+            $table->string('village_id', 20)->nullable();
+            $table->foreign('province_id')->references('code')->on('indonesia_regions')->nullOnDelete();
+            $table->foreign('regency_id')->references('code')->on('indonesia_regions')->nullOnDelete();
+            $table->foreign('district_id')->references('code')->on('indonesia_regions')->nullOnDelete();
+            $table->foreign('village_id')->references('code')->on('indonesia_regions')->nullOnDelete();
 
             $table->string('telepon_seluler')->nullable();
             $table->timestamps();

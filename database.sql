@@ -188,7 +188,7 @@ INSERT INTO `countries` (`id`, `name`, `code`, `dial_code`, `flag`, `created_at`
 (51, 'Congo (the)', 'CG', '242', '🇨🇬', '2026-08-22 02:42:41', '2026-08-22 02:42:41'),
 (52, 'Cook Islands (the)', 'CK', '682', '🇨🇰', '2026-08-22 02:42:41', '2026-08-22 02:42:41'),
 (53, 'Costa Rica', 'CR', '506', '🇨🇷', '2026-08-22 02:42:41', '2026-08-22 02:42:41'),
-(54, 'Côte d\'Ivoire', 'CI', '225', '🇨🇮', '2026-08-22 02:42:41', '2026-08-22 02:42:41'),
+(54, 'Côte d''Ivoire', 'CI', '225', '🇨🇮', '2026-08-22 02:42:41', '2026-08-22 02:42:41'),
 (55, 'Croatia', 'HR', '385', '🇭🇷', '2026-08-22 02:42:41', '2026-08-22 02:42:41'),
 (56, 'Cuba', 'CU', '53', '🇨🇺', '2026-08-22 02:42:41', '2026-08-22 02:42:41'),
 (57, 'Curaçao', 'CW', '5999', '🇨🇼', '2026-08-22 02:42:41', '2026-08-22 02:42:41'),
@@ -252,11 +252,11 @@ INSERT INTO `countries` (`id`, `name`, `code`, `dial_code`, `flag`, `created_at`
 (115, 'Kazakhstan', 'KZ', '7', '🇰🇿', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
 (116, 'Kenya', 'KE', '254', '🇰🇪', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
 (117, 'Kiribati', 'KI', '686', '🇰🇮', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
-(118, 'Korea (the Democratic People\'s Republic of)', 'KP', '850', '🇰🇵', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
+(118, 'Korea (the Democratic People''s Republic of)', 'KP', '850', '🇰🇵', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
 (119, 'Korea (the Republic of)', 'KR', '82', '🇰🇷', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
 (120, 'Kuwait', 'KW', '965', '🇰🇼', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
 (121, 'Kyrgyzstan', 'KG', '996', '🇰🇬', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
-(122, 'Lao People\'s Democratic Republic (the)', 'LA', '856', '🇱🇦', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
+(122, 'Lao People''s Democratic Republic (the)', 'LA', '856', '🇱🇦', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
 (123, 'Latvia', 'LV', '371', '🇱🇻', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
 (124, 'Lebanon', 'LB', '961', '🇱🇧', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
 (125, 'Lesotho', 'LS', '266', '🇱🇸', '2026-08-22 02:42:42', '2026-08-22 02:42:42'),
@@ -92659,7 +92659,7 @@ INSERT INTO `referensi_details` (`id`, `referensi_id`, `deskripsi`, `urutan`, `s
 (71, 10, 'Aneuk Jamee', 0, 1, '2026-08-23 08:41:59', '2026-08-23 08:41:59'),
 (72, 10, 'Arab', 0, 1, '2026-08-23 08:42:05', '2026-08-23 08:42:05'),
 (73, 10, 'Aru', 0, 1, '2026-08-23 08:42:10', '2026-08-23 08:42:10'),
-(74, 10, 'Bare\'e', 0, 1, '2026-08-23 08:42:17', '2026-08-23 08:42:17'),
+(74, 10, 'Bare''e', 0, 1, '2026-08-23 08:42:17', '2026-08-23 08:42:17'),
 (75, 10, 'Banten', 0, 1, '2026-08-23 08:42:22', '2026-08-23 08:42:22'),
 (76, 10, 'Besemah', 0, 1, '2026-08-23 08:42:27', '2026-08-23 08:42:27'),
 (77, 10, 'Bali', 0, 1, '2026-08-23 08:42:36', '2026-08-23 08:42:36'),
@@ -93219,11 +93219,7 @@ ALTER TABLE `failed_jobs`
 ALTER TABLE `indonesia_regions`
   ADD PRIMARY KEY (`code`),
   ADD KEY `indonesia_regions_name_index` (`name`),
-  ADD KEY `indonesia_regions_postal_code_index` (`postal_code`),
-  ADD KEY `idx_region_code_length` ((length(`code`))),
-  ADD KEY `idx_region_code_province` ((left(`code`,2))),
-  ADD KEY `idx_region_code_city` ((left(`code`,5))),
-  ADD KEY `idx_region_code_district` ((left(`code`,8)));
+  ADD KEY `indonesia_regions_postal_code_index` (`postal_code`);
 ALTER TABLE `indonesia_regions` ADD FULLTEXT KEY `idx_region_search_text` (`search_text`);
 
 --
