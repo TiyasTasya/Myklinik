@@ -37,6 +37,11 @@ class Pasien extends Model
         return $this->hasMany(PasienKeluarga::class);
     }
 
+    public function pendaftarans(): HasMany
+    {
+        return $this->hasMany(Pendaftaran::class);
+    }
+
     public function ibu(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(PasienKeluarga::class)

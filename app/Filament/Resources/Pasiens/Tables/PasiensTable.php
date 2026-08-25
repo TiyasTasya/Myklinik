@@ -21,6 +21,7 @@ class PasiensTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['tempatLahir', 'keluargas.statusKeluarga', 'agama', 'unitEksternal']))
             ->columns([
                 TextColumn::make('no')
                     ->label('No')

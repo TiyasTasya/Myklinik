@@ -14,10 +14,11 @@ Dibangun menggunakan stack teknologi terkini: **Laravel 13**, **Filament v5**, *
 - **Asal Instansi & Unit Eksternal**: Keterikatan unit dan sub-unit pengirim/asal pasien.
 - **Identitas & Alamat Berjenjang**:
   - Alamat KTP dan Alamat Domisili Sekarang (dengan fitur *Sama Dengan Alamat Sekarang*).
-  - Integrasi cascade wilayah: Provinsi &rarr; Kabupaten/Kota &rarr; Kecamatan &rarr; Kelurahan/Desa beserta RT, RW, dan Kode Pos.
-- **Kontak & Data Keluarga**:
-  - Multi-kontak pasien (Telepon, WhatsApp, Email, dll.).
-  - Data keluarga pasien beserta status hubungan dalam keluarga (SHDK), pendidikan, pekerjaan, alamat, dan nomor kontak.
+### 1. 📋 Manajemen Pasien & Pelayanan
+- **Pendaftaran Pasien (*Admission / Registration*)**: Registrasi kunjungan pasien baru dan lama, nomor antrian otomatis per poli, nomor registrasi unik (*auto-numbering* `REG-YYYYMMDD-0001`), pemilihan poli tujuan dan dokter pemeriksa, penjamin (Umum, BPJS, Asuransi), status pelayanan, dan administrasi kasir pendaftaran.
+- **Kunjungan Pasien (*Live Queue Monitor*)**: Halaman khusus monitoring antrian pasien poli secara *real-time* (dilengkapi kartu nomor antrian *primary solid*, identitas kunjungan, dan aksi cepat *Terima* / *Batal*).
+- **Master Data Pasien**: Pengelolaan data pasien lengkap (No. Rekam Medis otomatis/manual, NIK, alamat domisili & KTP bertingkat wilayah Indonesia, kontak darurat, dan data anggota keluarga).
+- **Rekam Medis & Riwayat Kunjungan**: Jejak pemeriksaan dan riwayat kunjungan pasien.
 - **Infolist Pasien**: Ringkasan data pasien dalam satu tampilan tabel kartu identitas yang rapi.
 
 ### 2. 👥 Manajemen Pengguna (*Cluster*)
@@ -46,9 +47,7 @@ Dibangun menggunakan stack teknologi terkini: **Laravel 13**, **Filament v5**, *
 - **Daftar Desa / Kelurahan**: Database lengkap kelurahan dan desa beserta kode pos.
 - Dilengkapi proteksi otorisasi halaman (*Page Shield*).
 
-### 5. ⚙️ Master Pengaturan (*Cluster*)
-- **Pengaturan (*Cluster*)**:
-  - **Umum & Branding**: Pengelolaan nama klinik/aplikasi, logo aplikasi (Light & Dark Mode), ukuran logo, dan favicon browser secara langsung melalui panel admin.
+### 5. ⚙️ Master Pengaturan (*Cluster*) & Data Medis
 - **Poli / Unit Layanan**: Pengaturan poli klinik (Poli Umum, Gigi, KIA, dll.).
 - **Tindakan Medis**: Tarif dan katalog tindakan medis dokter/perawat.
 - **Unit Kerja / Eksternal**: Pengelolaan struktur unit dan sub-unit organisasi.

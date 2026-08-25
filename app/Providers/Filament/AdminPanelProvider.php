@@ -7,7 +7,7 @@ use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
+use App\Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -21,6 +21,11 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Navigation\NavigationGroup;
 use JeffersonGoncalves\Filament\RefreshSidebar\RefreshSidebarPlugin;
 use Filament\Support\Icons\Heroicon;
+
+use App\Http\Middleware\AutoLockscreen;
+use Filament\View\PanelsRenderHook;
+
+use Ipatco\FilamentProfile\FilamentProfilePlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -48,6 +53,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\Filament\Clusters')
             ->pages([
                 Dashboard::class,
+                \App\Filament\Pages\Auth\Lockscreen::class,
             ])
             ->plugins([
                 FilamentShieldPlugin::make()
@@ -57,6 +63,9 @@ class AdminPanelProvider extends PanelProvider
                     ->navigationGroup(null)
                     ->navigationSort(3),
                 RefreshSidebarPlugin::make(),
+                FilamentProfilePlugin::make()
+                    ->label('Profil Saya')
+                    ->icon('heroicon-o-user-circle'),
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->defaultAvatarProvider(UiAvatarsProvider::class)
@@ -64,6 +73,14 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make('Master')
                     ->icon(Heroicon::Folder),
             ])
+            ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn () => view('filament.components.auth-styles')
+            )
+            ->renderHook(
+                PanelsRenderHook::BODY_END,
+                fn () => view('filament.components.idle-timer')
+            )
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -77,6 +94,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                AutoLockscreen::class,
             ]);
     }
 }

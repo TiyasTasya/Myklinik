@@ -16,6 +16,7 @@ class Pengaturan extends Model
         'dark_mode_brand_logo',
         'favicon',
         'brand_logo_height',
+        'lock_timeout_minutes',
     ];
 
     protected static ?self $instance = null;
@@ -33,6 +34,7 @@ class Pengaturan extends Model
                 'dark_mode_brand_logo' => null,
                 'favicon' => null,
                 'brand_logo_height' => '3rem',
+                'lock_timeout_minutes' => 5,
             ]);
         } catch (\Throwable $e) {
             static::$instance = new self([
@@ -41,6 +43,7 @@ class Pengaturan extends Model
                 'dark_mode_brand_logo' => null,
                 'favicon' => null,
                 'brand_logo_height' => '3rem',
+                'lock_timeout_minutes' => 5,
             ]);
         }
 
@@ -111,5 +114,19 @@ class Pengaturan extends Model
         }
 
         return '3rem';
+    }
+
+    public static function getLockTimeoutMinutes(): int
+    {
+        try {
+            $pengaturan = self::getPengaturan();
+            if (!empty($pengaturan->lock_timeout_minutes) && $pengaturan->lock_timeout_minutes > 0) {
+                return (int) $pengaturan->lock_timeout_minutes;
+            }
+        } catch (\Throwable $e) {
+            // Fallback
+        }
+
+        return 5;
     }
 }

@@ -22,6 +22,8 @@ class PasienResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = TablerIcon::UserHeart;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Master';
+
     public static function getNavigationLabel(): string
     {
         return 'Pasien';

@@ -11,13 +11,38 @@ class ViewPasien extends ViewRecord
 {
     protected static string $resource = PasienResource::class;
 
+    public function mount(int | string $record): void
+    {
+        parent::mount($record);
+
+        $this->record->loadMissing([
+            'tempatLahir',
+            'agama',
+            'pendidikan',
+            'pekerjaan',
+            'statusPerkawinan',
+            'golonganDarah',
+            'sukuBangsa',
+            'country',
+            'village',
+            'district',
+            'regency',
+            'province',
+            'jenisKartu',
+            'keluargas.statusKeluarga',
+            'kontaks.jenisKontak',
+            'pendaftarans.poli',
+            'pendaftarans.dokter',
+        ]);
+    }
+
     protected function getHeaderActions(): array
     {
         return [
             EditAction::make()
-            ->label('')
-            ->icon(TablerIcon::Edit)
-            ->tooltip('Edit Pasien'),
+                ->label('')
+                ->icon(TablerIcon::Edit)
+                ->tooltip('Edit Pasien'),
         ];
     }
 }

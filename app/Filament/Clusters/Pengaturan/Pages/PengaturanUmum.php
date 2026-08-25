@@ -21,7 +21,7 @@ class PengaturanUmum extends Page implements HasForms
 
     protected static ?string $cluster = Pengaturan::class;
 
-    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-paint-brush';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-computer-desktop';
 
     protected static ?string $navigationLabel = 'Instansi';
 
@@ -43,9 +43,9 @@ class PengaturanUmum extends Page implements HasForms
     {
         return $schema
             ->components([
-                Section::make('Identitas & Informasi Klinik')
+                Section::make('Identitas & Keamanan Sesi')
                     ->icon('heroicon-o-building-office-2')
-                    ->columns(2)
+                    ->columns(3)
                     ->schema([
                         TextInput::make('nama_klinik')
                             ->label('Nama Klinik / Aplikasi')
@@ -57,8 +57,17 @@ class PengaturanUmum extends Page implements HasForms
                             ->label('Tinggi Logo (CSS)')
                             ->placeholder('Contoh: 3rem')
                             ->default('3rem')
-                            ->helperText('Ukuran tinggi logo di navigasi (contoh: 3rem, 45px).')
+                            ->helperText('Ukuran tinggi logo (contoh: 3rem, 45px).')
                             ->maxLength(50),
+
+                        TextInput::make('lock_timeout_minutes')
+                            ->label('Kunci Sesi Otomatis (Menit)')
+                            ->numeric()
+                            ->default(5)
+                            ->minValue(1)
+                            ->maxValue(120)
+                            ->required()
+                            ->helperText('Layar terkunci otomatis jika tidak ada aktivitas (default: 5 menit).'),
                     ]),
 
                 Section::make('Logo & Favicon')
